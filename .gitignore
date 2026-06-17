@@ -5,6 +5,16 @@ node_modules/
 **/node_modules/
 
 # =========================
+# Package Lock Files
+# =========================
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+**/package-lock.json
+**/yarn.lock
+**/pnpm-lock.yaml
+
+# =========================
 # Environment Files
 # =========================
 .env
@@ -20,7 +30,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# =========================
+# ========================= 
 # React Native
 # =========================
 app/.bundle/
