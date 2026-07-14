@@ -1,0 +1,266 @@
+{
+  "screens": {
+    "login": {
+      "users": [
+        {
+          "id": "USR-001",
+          "email": "xentrix@gmail.com",
+          "password": "@Qwerty9112",
+          "name": "Superadmin",
+          "role": "Platform Owner"
+        }
+      ]
+    },
+    "overview": {
+      "kpis": {
+        "totalClients": { "value": 142, "trend": "↑ 12%", "subtext": "8 new this month" },
+        "activeBranches": { "value": "1,284", "trend": "↑ 6%", "subtext": "across all clients" },
+        "totalEmployees": { "value": "38,920", "trend": "↑ 9%", "subtext": "enrolled platform-wide" },
+        "monthlyRevenue": { "value": "$284.6k", "trend": "↑ 14%", "subtext": "MRR · net of churn" }
+      },
+      "charts": {
+        "revenueYTD": "$2.84M",
+        "revenueMonthly": [30, 35, 32, 45, 42, 48, 45, 55, 58, 62, 65, 75],
+        "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+        "planMix": {
+          "total": 142,
+          "enterprise": 54,
+          "growth": 46,
+          "starter": 42
+        }
+      },
+      "recentClients": [
+        { "id": "1", "name": "Acme Retail", "initials": "AC", "branches": 24, "employees": 1860, "plan": "Enterprise", "attendance": "94%", "status": "Active" },
+        { "id": "2", "name": "Nova Logistics", "initials": "NV", "branches": 38, "employees": 3420, "plan": "Enterprise", "attendance": "91%", "status": "Active" },
+        { "id": "3", "name": "Brightway Care", "initials": "BR", "branches": 12, "employees": 740, "plan": "Growth", "attendance": "88%", "status": "Active" },
+        { "id": "4", "name": "Pixel Foundry", "initials": "PX", "branches": 6, "employees": 210, "plan": "Growth", "attendance": "82%", "status": "Trial" },
+        { "id": "5", "name": "Urban Eats", "initials": "UR", "branches": 9, "employees": 430, "plan": "Starter", "attendance": "76%", "status": "Past due" }
+      ]
+    },
+    "clients": {
+      "list": [
+        { 
+          "id": "CL-001", 
+          "name": "HDFC Bank", 
+          "sites": 42, 
+          "guards": 185, 
+          "contractType": "Per Guard Per Month", 
+          "slaTarget": "95%", 
+          "status": "Active",
+          "contactPerson": "Ramesh Kumar",
+          "billingRate": 18000,
+          "settings": {
+            "faceRecognition": true,
+            "gpsTracking": true,
+            "autoSlaPenalties": false
+          },
+            "dashboard": {
+              "kpis": {
+                "mrr": { "value": "₹33.3L", "trend": "↑ 2.1%" },
+                "activeGuards": { "value": "185", "trend": "↑ 4 deployed" },
+                "slaCompliance": { "value": "96.6%", "trend": "↑ 0.5%" },
+                "openIncidents": { "value": "2", "trend": "1 P1 · 1 in SLA" }
+              },
+              "charts": {
+                "revenueYTD": "₹3.8Cr",
+                "revenueMonthly": [25, 28, 28, 30, 31, 31, 33, 33, 33, 33, 33, 33],
+                "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+              }
+            },
+            "subClients": [
+              {
+                "id": "CL-001-A",
+                "name": "HDFC Bank - North Branch",
+                "sites": 12,
+                "guards": 45,
+                "status": "Active",
+                "contactPerson": "Amit Patel",
+                "parentId": "CL-001",
+                "settings": {
+                  "faceRecognition": true,
+                  "gpsTracking": true,
+                  "autoSlaPenalties": true
+                },
+                "dashboard": {
+                  "kpis": {
+                    "mrr": { "value": "₹8.3L", "trend": "↑ 1.1%" },
+                    "activeGuards": { "value": "45", "trend": "Stable" },
+                    "slaCompliance": { "value": "98.2%", "trend": "↑ 0.1%" },
+                    "openIncidents": { "value": "0", "trend": "All clear" }
+                  },
+                  "charts": {
+                    "revenueYTD": "₹95L",
+                    "revenueMonthly": [6, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+                    "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+                  }
+                }
+              },
+              {
+                "id": "CL-001-B",
+                "name": "HDFC Bank - South Branch",
+                "sites": 30,
+                "guards": 140,
+                "status": "Deactive",
+                "contactPerson": "Neha Gupta",
+                "parentId": "CL-001",
+                "settings": {
+                  "faceRecognition": false,
+                  "gpsTracking": false,
+                  "autoSlaPenalties": false
+                },
+                "dashboard": {
+                  "kpis": {
+                    "mrr": { "value": "₹0", "trend": "↓ 100%" },
+                    "activeGuards": { "value": "0", "trend": "Deactivated" },
+                    "slaCompliance": { "value": "N/A", "trend": "N/A" },
+                    "openIncidents": { "value": "0", "trend": "N/A" }
+                  },
+                  "charts": {
+                    "revenueYTD": "₹1.5Cr",
+                    "revenueMonthly": [19, 21, 21, 22, 23, 23, 0, 0, 0, 0, 0, 0],
+                    "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+                  }
+                }
+              }
+            ]
+          },
+        { 
+          "id": "CL-002", 
+          "name": "Infosys Tech Park", 
+          "sites": 1, 
+          "guards": 80, 
+          "contractType": "Attendance-Based", 
+          "slaTarget": "98%", 
+          "status": "Active",
+          "contactPerson": "Priya Sharma",
+          "billingRate": 650,
+          "settings": {
+            "faceRecognition": true,
+            "gpsTracking": true,
+            "autoSlaPenalties": true
+          },
+          "dashboard": {
+            "kpis": {
+              "mrr": { "value": "₹15.6L", "trend": "↑ 4.2%" },
+              "activeGuards": { "value": "80", "trend": "Stable" },
+              "slaCompliance": { "value": "94.1%", "trend": "↓ 1.2%" },
+              "openIncidents": { "value": "0", "trend": "All clear" }
+            },
+            "charts": {
+              "revenueYTD": "₹1.4Cr",
+              "revenueMonthly": [12, 12, 13, 14, 15, 15, 15, 15, 15, 15, 15, 15],
+              "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+            }
+          }
+        },
+        { 
+          "id": "CL-003", 
+          "name": "Ruby Hall Hospital", 
+          "sites": 3, 
+          "guards": 45, 
+          "contractType": "Per Shift", 
+          "slaTarget": "90%", 
+          "status": "Active",
+          "contactPerson": "Dr. Anil Deshmukh",
+          "billingRate": 800,
+          "settings": {
+            "faceRecognition": false,
+            "gpsTracking": false,
+            "autoSlaPenalties": false
+          },
+          "dashboard": {
+            "kpis": {
+              "mrr": { "value": "₹10.8L", "trend": "↑ 1.1%" },
+              "activeGuards": { "value": "45", "trend": "↑ 2 deployed" },
+              "slaCompliance": { "value": "98.5%", "trend": "↑ 0.2%" },
+              "openIncidents": { "value": "1", "trend": "Non-critical" }
+            },
+            "charts": {
+              "revenueYTD": "₹1.1Cr",
+              "revenueMonthly": [9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+              "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+            }
+          }
+        },
+        { 
+          "id": "CL-004", 
+          "name": "Global Logistics Hub", 
+          "sites": 8, 
+          "guards": 120, 
+          "contractType": "Per Guard Per Month", 
+          "slaTarget": "92%", 
+          "status": "Pending",
+          "contactPerson": "Amit Patel",
+          "billingRate": 16500,
+          "settings": {
+            "faceRecognition": true,
+            "gpsTracking": true,
+            "autoSlaPenalties": false
+          },
+          "dashboard": {
+            "kpis": {
+              "mrr": { "value": "₹0", "trend": "-" },
+              "activeGuards": { "value": "0", "trend": "Pending setup" },
+              "slaCompliance": { "value": "0%", "trend": "-" },
+              "openIncidents": { "value": "0", "trend": "-" }
+            },
+            "charts": {
+              "revenueYTD": "₹0",
+              "revenueMonthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              "months": ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+            }
+          }
+        }
+      ]
+    },
+    "employees": {
+      "list": [
+        {
+          "id": "EMP-001",
+          "name": "Ramesh Pawar",
+          "role": "Security Guard",
+          "site": "HDFC Bank",
+          "status": "Active",
+          "attendance": "98%",
+          "shift": "Morning",
+          "phone": "+91 98765 43210",
+          "joinDate": "2024-01-15",
+          "settings": {
+            "biometricAccess": true,
+            "overtimeAllowed": false
+          }
+        },
+        {
+          "id": "EMP-002",
+          "name": "Mahesh Kadam",
+          "role": "Supervisor",
+          "site": "Infosys Tech Park",
+          "status": "Active",
+          "attendance": "100%",
+          "shift": "Night",
+          "phone": "+91 98765 43211",
+          "joinDate": "2023-11-01",
+          "settings": {
+            "biometricAccess": true,
+            "overtimeAllowed": true
+          }
+        },
+        {
+          "id": "EMP-003",
+          "name": "Sanjay Jadhav",
+          "role": "Security Guard",
+          "site": "Ruby Hall Hospital",
+          "status": "On Leave",
+          "attendance": "85%",
+          "shift": "Evening",
+          "phone": "+91 98765 43212",
+          "joinDate": "2024-03-20",
+          "settings": {
+            "biometricAccess": false,
+            "overtimeAllowed": false
+          }
+        }
+      ]
+    }
+  }
+}

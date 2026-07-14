@@ -1,38 +1,24 @@
-.App {
-  text-align: center;
+:root{
+  --bg:#0B111B;
+  --panel-top:#111B2B;
+  --panel-bot:#080D15;
+  --surface:#121B28;
+  --input:#182333;
+  --input-focus:#1C2A3D;
+  --line:#243042;
+  --line-2:#2E3B50;
+  --text:#EAEEF5;
+  --muted:#8A99B0;
+  --faint:#59677E;
+  --beacon:#F4B44C;
+  --beacon-deep:#E39531;
+  --beacon-glow:rgba(244,180,76,.16);
+  --ok:#5BC79A;
+  --alert:#E8705A;
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Hanken Grotesk',system-ui,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --r:14px;
+  --r-sm:10px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

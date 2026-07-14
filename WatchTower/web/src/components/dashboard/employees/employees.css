@@ -1,0 +1,45 @@
+.employees-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.employees-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 24px;
+}
+
+.employees-header h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 32px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.employees-header p {
+  color: var(--muted);
+  font-size: 14.5px;
+  font-family: var(--body);
+}
+
+.badge-outline {
+  border: 1px solid var(--line-2);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.status-dot.active { background: #4CAF50; }
+.status-dot.on { background: #FF9800; } /* On Leave */
+.status-dot.inactive { background: #F44336; }
