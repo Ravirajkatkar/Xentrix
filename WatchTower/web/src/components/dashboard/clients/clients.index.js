@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addClient, updateClient, selectClient, clearSelectedClient } from '../../../store/slices/clientSlice';
+import { selectClient, clearSelectedClient } from '../../../store/slices/clientSlice';
+import { addClientToHierarchy, updateClientInHierarchy } from '../../../store/slices/deploymentSlice';
 import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { usePermissions } from '../../../hooks/usePermissions';
 import './clients.css';
 import '../overview/overview.css'; // Reusing overview layout classes for dashboard tab
 
 export default function Clients() {
     const dispatch = useDispatch();
-    const clients = useSelector(state => state.clients.clients);
+    const clients = useSelector(state => state.deployment.hierarchy['T-001'] || []);
     const selectedClient = useSelector(state => state.clients.selectedClient);
+    const { hasRole, hasPermission, hasScopeAccess } = usePermissions();
 
     const [isPanelOpen, setIsPanelOpen] = useState(false);
     const [panelMode, setPanelMode] = useState('create'); // 'create', 'view', 'edit', 'settings'
@@ -29,12 +32,7 @@ export default function Clients() {
             });
             setIsPanelOpen(true);
             setPanelMode('view');
-            // If the selected client is a sub-client and we were on the subclients tab, revert to dashboard
-            if (selectedClient.parentId && activeTab === 'subclients') {
-                setActiveTab('dashboard');
-            } else {
-                setActiveTab('dashboard');
-            }
+            setActiveTab('dashboard');
         }
     }, [selectedClient]);
 
@@ -74,12 +72,12 @@ export default function Clients() {
             const newClient = {
                 ...formData,
                 id: `CL-00${clients.length + 1}`,
-                sites: 0,
+                subClients: [],
                 status: 'Pending'
             };
-            dispatch(addClient(newClient));
+            dispatch(addClientToHierarchy({ tenantId: 'T-001', client: newClient }));
         } else {
-            dispatch(updateClient(formData));
+            dispatch(updateClientInHierarchy({ tenantId: 'T-001', client: formData }));
         }
         handleClosePanel();
     };
@@ -92,9 +90,11 @@ export default function Clients() {
                     <p>Manage organizations and contracts</p>
                 </div>
                 <div className="clients-actions">
-                    <button className="btn-primary" onClick={handleCreateNew}>
-                        Add New Client
-                    </button>
+                    {hasPermission('client:write') && (
+                        <button className="btn-primary" onClick={handleCreateNew}>
+                            Add New Client
+                        </button>
+                    )}
                 </div>
             </header>
 
@@ -111,7 +111,7 @@ export default function Clients() {
                         </tr>
                     </thead>
                     <tbody>
-                        {clients.map(client => (
+                        {clients.filter(client => hasScopeAccess('CLIENT', [client.id])).map(client => (
                             <tr key={client.id} onClick={() => handleRowClick(client)}>
                                 <td>
                                     <div className="client-name">
@@ -119,7 +119,7 @@ export default function Clients() {
                                         <span className="sub">{client.id}</span>
                                     </div>
                                 </td>
-                                <td className="td-num">{client.sites}</td>
+                                <td className="td-num">{client.subClients?.length || 0}</td>
                                 <td className="td-num">{client.guards}</td>
                                 <td><span className="td-badge">{client.contractType}</span></td>
                                 <td className="td-num">{client.slaTarget}</td>
@@ -405,6 +405,33 @@ export default function Clients() {
                                         <span className="slider"></span>
                                     </label>
                                 </div>
+                                {hasRole(['ULTRA_SUPER_ADMIN']) && (
+                                    <>
+                                        <hr style={{ border: 'none', borderTop: '1px solid var(--line)', margin: '32px 0' }} />
+                                        <h3 style={{ color: 'var(--text)', fontSize: '14px', marginBottom: '16px' }}>Client Portal Access (Superadmin Only)</h3>
+                                        
+                                        <div className="setting-row">
+                                            <div className="setting-info">
+                                                <span>Enable AI Insights</span>
+                                                <small>Allow client users to see AI-generated insights on their dashboard.</small>
+                                            </div>
+                                            <label className="toggle-switch">
+                                                <input type="checkbox" checked={formData.settings.allowAiInsights} onChange={e => handleSettingChange('allowAiInsights', e.target.checked)} />
+                                                <span className="slider"></span>
+                                            </label>
+                                        </div>
+                                        <div className="setting-row">
+                                            <div className="setting-info">
+                                                <span>Enable Invoice Approval</span>
+                                                <small>Allow client users to view and approve invoices.</small>
+                                            </div>
+                                            <label className="toggle-switch">
+                                                <input type="checkbox" checked={formData.settings.allowInvoiceApproval} onChange={e => handleSettingChange('allowInvoiceApproval', e.target.checked)} />
+                                                <span className="slider"></span>
+                                            </label>
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
                     </div>

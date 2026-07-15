@@ -1,10 +1,25 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { BarChart, Bar, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { usePermissions } from '../../../hooks/usePermissions';
 import './overview.css';
 
 export default function Overview() {
-    const { kpis, charts, recentClients } = useSelector(state => state.overview.data);
+    const { kpis, charts } = useSelector(state => state.overview.data);
+    const clients = useSelector(state => state.deployment.hierarchy['T-001'] || []);
+    const employees = useSelector(state => state.employees.employees || []);
+    const { hasScopeAccess } = usePermissions();
+
+    // ABAC Scoping
+    const filteredClients = clients.filter(client => hasScopeAccess('CLIENT', [client.id]));
+    const filteredEmployees = employees.filter(emp => {
+        const assignedClient = clients.find(c => c.name === emp.site);
+        return assignedClient ? hasScopeAccess('CLIENT', [assignedClient.id]) : true;
+    });
+
+    const totalClientsCount = filteredClients.length;
+    const totalBranchesCount = filteredClients.reduce((acc, c) => acc + (c.subClients?.length || 0), 0);
+    const totalEmployeesCount = filteredEmployees.length;
 
     return (
         <main className="dashboard-main">
@@ -23,7 +38,7 @@ export default function Overview() {
                 <div className="kpi-card">
                     <div className="kpi-label">Total Clients</div>
                     <div className="kpi-value-row">
-                        <div className="kpi-value">{kpis.totalClients.value}</div>
+                        <div className="kpi-value">{totalClientsCount}</div>
                         <div className="tag-pill">{kpis.totalClients.trend}</div>
                     </div>
                     <div className="kpi-sub">{kpis.totalClients.subtext}</div>
@@ -32,7 +47,7 @@ export default function Overview() {
                 <div className="kpi-card">
                     <div className="kpi-label">Active Branches</div>
                     <div className="kpi-value-row">
-                        <div className="kpi-value">{kpis.activeBranches.value}</div>
+                        <div className="kpi-value">{totalBranchesCount}</div>
                         <div className="tag-pill">{kpis.activeBranches.trend}</div>
                     </div>
                     <div className="kpi-sub">{kpis.activeBranches.subtext}</div>
@@ -41,7 +56,7 @@ export default function Overview() {
                 <div className="kpi-card">
                     <div className="kpi-label">Total Employees</div>
                     <div className="kpi-value-row">
-                        <div className="kpi-value">{kpis.totalEmployees.value}</div>
+                        <div className="kpi-value">{totalEmployeesCount.toLocaleString()}</div>
                         <div className="tag-pill">{kpis.totalEmployees.trend}</div>
                     </div>
                     <div className="kpi-sub">{kpis.totalEmployees.subtext}</div>
@@ -103,30 +118,19 @@ export default function Overview() {
                                         ]}
                                         cx="50%"
                                         cy="50%"
-                                        innerRadius={45}
+                                        innerRadius={50}
                                         outerRadius={65}
                                         paddingAngle={2}
                                         dataKey="value"
-                                        stroke="none"
                                     >
-                                        {
-                                            [
-                                                { name: 'Enterprise', value: charts.planMix.enterprise, color: '#F7A742' },
-                                                { name: 'Growth', value: charts.planMix.growth, color: '#9AA0A6' },
-                                                { name: 'Starter', value: charts.planMix.starter, color: '#3C4043' }
-                                            ].map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.color} />
-                                            ))
-                                        }
+                                        <Cell fill="#F7A742" />
+                                        <Cell fill="#9AA0A6" />
+                                        <Cell fill="#3C4043" />
                                     </Pie>
-                                    <Tooltip 
-                                        contentStyle={{ backgroundColor: 'var(--surface)', border: '1px solid var(--line)', borderRadius: '8px', fontSize: 12 }}
-                                        itemStyle={{ color: 'var(--text)' }}
-                                    />
                                 </PieChart>
                             </ResponsiveContainer>
-                            <div className="donut-center" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', pointerEvents: 'none' }}>
-                                <h3 style={{ fontSize: 16, margin: 0 }}>{charts.planMix.total}</h3>
+                            <div className="donut-center">
+                                <h3 style={{ margin: 0, fontSize: 20, color: 'var(--text)', fontWeight: 600 }}>{charts.planMix.total}</h3>
                                 <p style={{ fontSize: 9, margin: 0, opacity: 0.6 }}>clients</p>
                             </div>
                         </div>
@@ -157,24 +161,28 @@ export default function Overview() {
                         </tr>
                     </thead>
                     <tbody>
-                        {recentClients.map(client => (
-                            <tr key={client.id}>
-                                <td>
-                                    <div className="client-cell">
-                                        <div className="client-avatar">{client.initials}</div>
-                                        <span className="client-name">{client.name}</span>
-                                    </div>
-                                </td>
-                                <td className="td-num">{client.branches}</td>
-                                <td className="td-num">{client.employees.toLocaleString()}</td>
-                                <td><span className="td-plan">{client.plan}</span></td>
-                                <td className="td-bold">{client.attendance}</td>
-                                <td className="td-status">
-                                    <span className={`status-dot ${client.status === 'Active' ? 'st-active' : client.status === 'Trial' ? 'st-trial' : 'st-past'}`}></span> 
-                                    {client.status}
-                                </td>
-                            </tr>
-                        ))}
+                        {filteredClients.map(client => {
+                            const initials = client.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+                            const clientEmployeesCount = employees.filter(emp => emp.site === client.name).length;
+                            return (
+                                <tr key={client.id}>
+                                    <td>
+                                        <div className="client-cell">
+                                            <div className="client-avatar">{initials}</div>
+                                            <span className="client-name">{client.name}</span>
+                                        </div>
+                                    </td>
+                                    <td className="td-num">{client.subClients?.length || 0}</td>
+                                    <td className="td-num">{clientEmployeesCount.toLocaleString()}</td>
+                                    <td><span className="td-plan">{client.plan || 'Enterprise'}</span></td>
+                                    <td className="td-bold">{client.attendance || '95%'}</td>
+                                    <td className="td-status">
+                                        <span className={`status-dot ${client.status === 'Active' ? 'st-active' : 'st-past'}`}></span> 
+                                        {client.status}
+                                    </td>
+                                </tr>
+                            );
+                        })}
                     </tbody>
                 </table>
             </div>

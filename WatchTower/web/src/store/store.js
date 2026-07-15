@@ -3,6 +3,7 @@ import authReducer from './slices/authSlice';
 import clientReducer from './slices/clientSlice';
 import overviewReducer from './slices/overviewSlice';
 import employeeReducer from './slices/employeeSlice';
+import deploymentReducer from './slices/deploymentSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     clients: clientReducer,
     overview: overviewReducer,
     employees: employeeReducer,
+    deployment: deploymentReducer,
   },
 });

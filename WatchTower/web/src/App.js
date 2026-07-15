@@ -6,6 +6,8 @@ import DashboardLayout from './components/layout/DashboardLayout';
 import Overview from './components/dashboard/overview/overview.index';
 import Clients from './components/dashboard/clients/clients.index';
 import Employees from './components/dashboard/employees/employees.index';
+import Sites from './components/dashboard/sites/sites.index';
+import Tenants from './components/dashboard/tenants/tenants.index';
 import ProtectedRoute from './components/layout/ProtectedRoute';
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
             <Route index element={<Overview />} />
             <Route path="clients" element={<Clients />} />
             <Route path="employees" element={<Employees />} />
+            <Route path="sites" element={<Sites />} />
+            <Route path="tenants" element={<Tenants />} />
             {/* Fallback for other sidebar routes until they are built */}
             <Route path="*" element={
               <div style={{ marginLeft: 260, padding: 40, color: 'var(--text)' }}>

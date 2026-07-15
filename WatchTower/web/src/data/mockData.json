@@ -7,7 +7,35 @@
           "email": "xentrix@gmail.com",
           "password": "@Qwerty9112",
           "name": "Superadmin",
-          "role": "Platform Owner"
+          "role": "ULTRA_SUPER_ADMIN",
+          "permissions": ["client:read", "client:write", "employee:read", "employee:write", "invoice:read", "invoice:write", "attendance:read", "attendance:approve"],
+          "scope": {
+            "type": "GLOBAL"
+          }
+        },
+        {
+          "id": "USR-002",
+          "email": "client@hdfc.com",
+          "password": "password123",
+          "name": "HDFC Admin",
+          "role": "CLIENT_USER",
+          "permissions": ["client:read", "site:read", "dashboard:read"],
+          "scope": {
+            "type": "CLIENT",
+            "client_ids": ["CL-001"]
+          }
+        },
+        {
+          "id": "USR-003",
+          "email": "supervisor@nova.com",
+          "password": "password123",
+          "name": "Nova Supervisor",
+          "role": "SITE_SUPERVISOR",
+          "permissions": ["attendance:read", "site:read", "attendance:approve", "incident:create", "patrol:read"],
+          "scope": {
+            "type": "SITE",
+            "site_ids": ["site_nova_001"]
+          }
         }
       ]
     },
@@ -30,11 +58,11 @@
         }
       },
       "recentClients": [
-        { "id": "1", "name": "Acme Retail", "initials": "AC", "branches": 24, "employees": 1860, "plan": "Enterprise", "attendance": "94%", "status": "Active" },
-        { "id": "2", "name": "Nova Logistics", "initials": "NV", "branches": 38, "employees": 3420, "plan": "Enterprise", "attendance": "91%", "status": "Active" },
-        { "id": "3", "name": "Brightway Care", "initials": "BR", "branches": 12, "employees": 740, "plan": "Growth", "attendance": "88%", "status": "Active" },
-        { "id": "4", "name": "Pixel Foundry", "initials": "PX", "branches": 6, "employees": 210, "plan": "Growth", "attendance": "82%", "status": "Trial" },
-        { "id": "5", "name": "Urban Eats", "initials": "UR", "branches": 9, "employees": 430, "plan": "Starter", "attendance": "76%", "status": "Past due" }
+        { "id": "CL-001", "name": "HDFC Bank", "initials": "HD", "branches": 42, "employees": 1860, "plan": "Enterprise", "attendance": "94%", "status": "Active" },
+        { "id": "CL-002", "name": "Nova Logistics", "initials": "NV", "branches": 38, "employees": 3420, "plan": "Enterprise", "attendance": "91%", "status": "Active" },
+        { "id": "CL-003", "name": "Brightway Care", "initials": "BR", "branches": 12, "employees": 740, "plan": "Growth", "attendance": "88%", "status": "Active" },
+        { "id": "CL-004", "name": "Pixel Foundry", "initials": "PX", "branches": 6, "employees": 210, "plan": "Growth", "attendance": "82%", "status": "Trial" },
+        { "id": "CL-005", "name": "Urban Eats", "initials": "UR", "branches": 9, "employees": 430, "plan": "Starter", "attendance": "76%", "status": "Past due" }
       ]
     },
     "clients": {
@@ -76,6 +104,10 @@
                 "status": "Active",
                 "contactPerson": "Amit Patel",
                 "parentId": "CL-001",
+                "posts": [
+                  { "id": "PT-001", "name": "Main Gate" },
+                  { "id": "PT-002", "name": "Parking Gate" }
+                ],
                 "settings": {
                   "faceRecognition": true,
                   "gpsTracking": true,
@@ -103,6 +135,9 @@
                 "status": "Deactive",
                 "contactPerson": "Neha Gupta",
                 "parentId": "CL-001",
+                "posts": [
+                  { "id": "PT-003", "name": "ATM Area" }
+                ],
                 "settings": {
                   "faceRecognition": false,
                   "gpsTracking": false,
@@ -260,6 +295,12 @@
             "overtimeAllowed": false
           }
         }
+      ]
+    },
+    "deployment": {
+      "tenants": [
+        { "id": "T-001", "name": "ABC Security Services", "email": "contact@abcsecurity.com", "phone": "+91 99999 88888", "plan": "Enterprise", "status": "Active" },
+        { "id": "T-002", "name": "XYZ Security Group", "email": "info@xyzsecurity.com", "phone": "+91 77777 66666", "plan": "Standard", "status": "Active" }
       ]
     }
   }

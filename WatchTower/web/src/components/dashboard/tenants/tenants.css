@@ -1,0 +1,181 @@
+/* tenants.css */
+.tenants-main {
+  margin-left: 260px;
+  padding: 0 32px 40px 32px;
+  min-height: 100vh;
+}
+
+.tenants-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0 24px 0;
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+}
+
+.tenants-title h1 {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 28px;
+  margin-bottom: 4px;
+}
+
+.tenants-title p {
+  color: var(--muted);
+  font-size: 14.5px;
+}
+
+.kpi-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 1024px) {
+  .kpi-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .kpi-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kpi-box {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.kpi-box-label {
+  font-size: 12px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.kpi-box-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--text);
+  margin-top: 8px;
+}
+
+.kpi-box-trend {
+  font-size: 12px;
+  color: var(--beacon);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tenants-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 24px;
+  animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tenants-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.search-bar {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  width: 280px;
+}
+
+.search-bar::placeholder {
+  color: var(--faint);
+}
+
+.tenants-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tenants-table th {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--faint);
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.tenants-table td {
+  padding: 16px;
+  border-bottom: 1px solid var(--line);
+  color: var(--text);
+  font-size: 14px;
+}
+
+.tenants-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.tier-badge.enterprise {
+  background: rgba(62, 166, 255, 0.1);
+  color: var(--beacon);
+  border: 1px solid rgba(62, 166, 255, 0.2);
+}
+
+.tier-badge.standard {
+  background: rgba(154, 160, 166, 0.1);
+  color: var(--muted);
+  border: 1px solid rgba(154, 160, 166, 0.2);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.active {
+  background: #2ECC71;
+  box-shadow: 0 0 8px #2ECC71;
+}
+
+.status-dot.suspended {
+  background: #E5484D;
+  box-shadow: 0 0 8px #E5484D;
+}
